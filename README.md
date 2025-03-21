@@ -3,7 +3,7 @@
 # participantes
 Gabriel Santos -->https://github.com/Diggo0
 Isabelly de oliveira -->https://github.com/BellyOliveira
-João Pedro 
+João Pedro --> https://github.com/JO4OXY
 Luis Henrique -->https://github.com/Passarin1
 Mirella Dias -->https://github.com/mirellaoliveira244
 Luane Gonçalves-->https://github.com/Luh234 
