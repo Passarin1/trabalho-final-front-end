@@ -5,9 +5,6 @@ async function criarUsuario(data) {
   if (!data.nome || !data.email || !data.senha) {
     throw new Error("Os campos nome, email e senha são obrigatórios.");
   }
-  if (!data.tipo_de_pele || !data.horario || data.rotina_id === undefined) {
-    throw new Error("Os campos tipo_de_pele, horario e rotina_id são obrigatórios.");
-  }
   return await insertUsuario(data);
 }
 

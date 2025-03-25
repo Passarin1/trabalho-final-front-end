@@ -11,13 +11,20 @@ async function connect() {
 // CRUD para usuários
 async function insertUsuario(data) {
   const client = await connect();
-  const query = `INSERT INTO usuario (nome, email, senha, tipo_de_pele, horario, rotina_id) 
-                 VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
-  const values = [data.nome, data.email, data.senha, data.tipo_de_pele, data.horario, data.rotina_id];
+  const query = "INSERT INTO usuario (email, senha) VALUES ($1, $2)";
+  const values = [data.email, data.senha];
   const res = await client.query(query, values);
   client.release();
   return res.rows[0];
 }
+async function autenticarUsuario(email, senha) {
+  const client = await connect();
+  const query = "SELECT * FROM usuario WHERE email = $1 AND senha = $2";
+  const usuario = [email, senha];
+  const res = await client.query(query, usuario);
+  return res.rows[0];
+}
+
 
 async function selectUsuarios() {
   const client = await connect();
@@ -26,11 +33,18 @@ async function selectUsuarios() {
   return res.rows;
 }
 
-async function updateUsuario(id, data) {
+async function selectUsuario(id) {
+  const client = await connect();
+  const res = await client.query("SELECT * FROM usuario WHERE id = $1", [id]);
+  client.release();
+  return res.rows;
+}
+
+async function updateUsuario(data) {
   const client = await connect();
   const query = `UPDATE usuario SET nome = $1, email = $2, senha = $3, tipo_de_pele = $4, horario = $5 
                  WHERE id = $6`;
-  const values = [data.nome, data.email, data.senha, data.tipo_de_pele, data.horario, id];
+  const values = [data.nome, data.email, data.senha, data.tipo_de_pele, data.horario, data.id];
   await client.query(query, values);
   client.release();
 }
@@ -75,5 +89,6 @@ async function deleteRotina(id) {
 
 export {
   insertUsuario, selectUsuarios, updateUsuario, deleteUsuario,
-  insertRotina, selectRotinas, updateRotina, deleteRotina
+  selectUsuario,
+  insertRotina, selectRotinas, updateRotina, deleteRotina,autenticarUsuario
 };
