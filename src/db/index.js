@@ -42,7 +42,7 @@ async function selectUsuario(id) {
 
 async function updateUsuario(data) {
   const client = await connect();
-  const query = `UPDATE usuario SET nome = $1, email = $2, senha = $3, tipo_de_pele = $4, horario = $5 
+  const query = `UPDATE usuario SET email = $1, senha = $2, tipo_de_pele = $4, horario = $5 
                  WHERE id = $6`;
   const values = [data.nome, data.email, data.senha, data.tipo_de_pele, data.horario, data.id];
   await client.query(query, values);
